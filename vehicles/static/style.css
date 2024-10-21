@@ -1,13 +1,15 @@
-/* vehicles/static/vehicles/styles.css */
+/* vehicles/static/vehicles/style.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
 }
+
 h1 {
     color: #333;
 }
+
 form {
     background-color: #fff;
     padding: 20px;
@@ -16,11 +18,13 @@ form {
     max-width: 400px;
     margin: auto;
 }
+
 label {
     display: block;
     margin: 10px 0 5px;
     font-weight: bold;
 }
+
 input[type="text"],
 input[type="number"] {
     width: 100%;
@@ -30,6 +34,7 @@ input[type="number"] {
     box-sizing: border-box;
     margin-bottom: 10px;
 }
+
 button {
     background-color: #4CAF50;
     color: white;
@@ -39,9 +44,11 @@ button {
     cursor: pointer;
     width: 100%;
 }
+
 button:hover {
     background-color: #45a049;
 }
+
 a {
     text-decoration: none;
     color: #333;
@@ -49,6 +56,21 @@ a {
     text-align: center;
     margin-top: 15px;
 }
-a:hover {
-    text-decoration: underline;
+
+
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.delete-btn {
+    background-color: #ca0606;
+}
+
+.delete-btn:hover {
+    background-color: #9e0303;
 }
