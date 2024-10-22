@@ -1,4 +1,3 @@
-/* vehicles/static/vehicles/style.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -26,13 +25,15 @@ label {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input,
+select {
     width: 100%;
     padding: 8px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-bottom: 10px;
 }
 
 button {
@@ -57,20 +58,47 @@ a {
     margin-top: 15px;
 }
 
-
-
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
 .delete-btn {
     background-color: #ca0606;
 }
 
 .delete-btn:hover {
     background-color: #9e0303;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+a {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #45a049;
 }

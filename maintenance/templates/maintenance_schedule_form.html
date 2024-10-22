@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Schedule</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+
+{% block content %}
+    <h2>{% if form.instance.pk %}Update{% else %}Create{% endif %} Maintenance Schedule</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if form.instance.pk %}Update{% else %}Create{% endif %} Schedule</button>
+    </form>
+    <div class="button-container">
+        <a href="{% url 'list_maintenance_schedule' %}">Back to Maintenance List</a>
+    </div>
+{% endblock %}
+
+</body>
+</html>

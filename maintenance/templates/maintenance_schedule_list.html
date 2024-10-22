@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+{% block content %}
+    <h2>Maintenance Schedules</h2>
+
+    <!-- Filter Container -->
+    <div class="add-bar">
+        <div>
+            <a href="{% url 'create_maintenance_schedule' %}" class="create-schedule">Create New Schedule</a>
+        </div>
+        <div class="filter-bar">
+            <h3>Filter By:</h3>
+            <a href="{% url 'list_maintenance_schedule' %}?status=completed" class="no-style" title="Completed">
+                <i class="fas fa-check-circle" style="font-size: 24px; color: green;"></i>
+            </a>
+            <a href="{% url 'list_maintenance_schedule' %}?status=not_completed" class="no-style" title="Not Completed">
+                <i class="fas fa-times-circle" style="font-size: 24px; color: red;"></i>
+            </a>
+            <a href="{% url 'list_maintenance_schedule' %}" class="no-style" title="All">
+                <i class="fas fa-list" style="font-size: 24px;"></i>
+            </a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Completed</th>
+            <th>Vehicle</th>
+            <th>Task</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for schedule in schedules %}
+            <tr>
+                <td width="2%" style="text-align: center">
+                    {% if schedule.completed %}
+                        <i class="fas fa-check-circle" style="color: green; font-size: 24px;"  title="Completed"></i>
+                    {% else %}
+                        <i class="fas fa-times-circle" style="color: red; font-size: 24px;" title="Not Completed"></i>
+                    {% endif %}
+                </td>
+                <td>{{ schedule.vehicle.vehicle_name }}</td>
+                <td>{{ schedule.task_name }}</td>
+                <td>{{ schedule.due_date }}</td>
+                <td>{{ schedule.get_completed_display }}</td>
+                <td>
+                    <a href="{% url 'update_maintenance_schedule' schedule.id %} " class="edit-btn">
+                        <i class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'update_maintenance_schedule' schedule.id %}" class="delete-btn">
+                        <i class="fas fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">No maintenance schedules available.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+</body>
+</html>
