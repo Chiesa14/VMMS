@@ -93,6 +93,11 @@ a {
     text-decoration: none;
     border-radius: 5px;
 }
+
+a:hover{
+    background-color: #45a049;
+}
+
 a.no-style{
     display: inline-block;
     margin: 20px auto;
@@ -102,7 +107,6 @@ a.no-style{
     text-decoration: none;
     border-radius: 5px;
 }
-
 
 .button-container {
     text-align: center;
@@ -131,3 +135,6 @@ a.no-style{
     justify-content: space-between;
 }
 
+.title{
+    text-align: center;
+}

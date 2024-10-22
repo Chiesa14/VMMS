@@ -7,4 +7,7 @@ urlpatterns = [
 
     path('create/', views.create_or_update_schedule, name='create_maintenance_schedule'),
     path('<int:schedule_id>/update/', views.create_or_update_schedule, name='update_maintenance_schedule'),
+
+ path('maintenance/delete/<int:schedule_id>/', views.delete_maintenance_schedule, name='delete_maintenance_schedule'),
+
 ]
