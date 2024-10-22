@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <script>
-        function deleteSchedule(scheduleId) {
+        {% block scripts %}
+            function deleteSchedule(scheduleId) {
             if (confirm("Are you sure you want to delete this schedule?")) {
                 const deleteUrl = "{% url 'delete_maintenance_schedule' 0 %}".replace("0", scheduleId);
                 fetch(deleteUrl, {
@@ -31,6 +32,7 @@
                 });
             }
         }
+        {% endblock %}
     </script>
 </head>
 <body>
@@ -85,7 +87,7 @@
                 <td>{{ schedule.task_name }}</td>
                 <td>{{ schedule.due_date }}</td>
                 <td>
-                    <a href="#">Activities</a>
+                    <a href="{% url 'list_activities' schedule.id %}">Activities</a>
 
                     <a href="{% url 'update_maintenance_schedule' schedule.id %}" class="edit-btn">
                         <i class="fas fa-edit"></i> Edit</a>

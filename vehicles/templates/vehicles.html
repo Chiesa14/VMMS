@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script>
-        function deleteVehicle(vehicleId) {
+        {% block scripts %}
+            function deleteVehicle(vehicleId) {
             if (confirm("Are you sure you want to delete this vehicle?")) {
                 const deleteUrl = "{% url 'delete_vehicle' 0 %}".replace("0", vehicleId);
                 fetch(deleteUrl, {
@@ -25,6 +26,7 @@
                 });
             }
         }
+        {% endblock %}
     </script>
 </head>
 <body>

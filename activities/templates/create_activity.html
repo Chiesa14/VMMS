@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Schedule Activities</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<h2>Add Maintenance Activity for: {{ maintenance.vehicle.vin }} - {{ maintenance.task_name }}</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Activity</button>
+</form>
+<div class="button-container">
+    <a href="{% url 'list_activities' maintenance.id %}">Back to Maintenance List</a>
+</div>
+</body>
+</html>

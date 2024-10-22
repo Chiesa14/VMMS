@@ -4,9 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import MaintenanceScheduleForm
 from .models import MaintenanceSchedule
 
-
-# Create or Update Maintenance Schedule
-def create_or_update_schedule(request, schedule_id=None):
+def  create_or_update_schedule(request, schedule_id=None):
     if schedule_id:
         schedule = get_object_or_404(MaintenanceSchedule, id=schedule_id)
     else:
