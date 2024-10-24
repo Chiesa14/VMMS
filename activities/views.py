@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -7,6 +8,7 @@ from .models import Activity
 
 
 # Create your views here.
+@login_required(login_url="/auth/login/")
 def create_activity(request, maintenance_id):
     maintenance = get_object_or_404(MaintenanceSchedule, pk=maintenance_id)  # Retrieve the maintenance record
     if request.method == 'POST':
@@ -25,6 +27,7 @@ def create_activity(request, maintenance_id):
     })
 
 
+@login_required(login_url="/auth/login/")
 def list_activities_by_maintenance(request, maintenance_id):
     maintenance = get_object_or_404(MaintenanceSchedule, pk=maintenance_id)  # Retrieve the maintenance record
     activities = Activity.objects.filter(maintenance=maintenance)  # Fetch activities related to the maintenance
@@ -35,6 +38,7 @@ def list_activities_by_maintenance(request, maintenance_id):
     })
 
 
+@login_required(login_url="/auth/login/")
 def delete_activity(request, activity_id):
     if request.method == "POST":
         activity = get_object_or_404(Activity, id=activity_id)
@@ -43,6 +47,7 @@ def delete_activity(request, activity_id):
     return JsonResponse({"error": "Invalid request method."}, status=400)
 
 
+@login_required(login_url="/auth/login/")
 def mark_as_done(request, activity_id):
     if request.method == 'POST':
         activity = get_object_or_404(Activity, id=activity_id)

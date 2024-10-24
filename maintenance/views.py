@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import MaintenanceScheduleForm
 from .models import MaintenanceSchedule
 
+@login_required(login_url="/auth/login/")
 def  create_or_update_schedule(request, schedule_id=None):
     if schedule_id:
         schedule = get_object_or_404(MaintenanceSchedule, id=schedule_id)
@@ -21,6 +23,7 @@ def  create_or_update_schedule(request, schedule_id=None):
     return render(request, 'maintenance_schedule_form.html', {'form': form})
 
 
+@login_required(login_url="/auth/login/")
 def list_maintenance_schedule(request):
     status_filter = request.GET.get('status')
     vehicle_id = request.GET.get('vehicle_id')
@@ -40,6 +43,7 @@ def list_maintenance_schedule(request):
     return render(request, 'maintenance_schedule_list.html', {'schedules': schedules})
 
 
+@login_required(login_url="/auth/login/")
 def delete_maintenance_schedule(request, schedule_id):
     if request.method == "POST":
         schedule = get_object_or_404(MaintenanceSchedule, id=schedule_id)

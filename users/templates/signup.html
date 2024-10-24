@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Sign Up{% endblock %}</title>
+</head>
+<body>
+{% block content %}
+    <h2>Signup</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Signup</button>
+    </form>
+    <div class="button-container">
+        <a href="{% url 'login' %}" class="no-style">Already have an account?</a>
+    </div>
+{% endblock %}
+</body>
+</html>
