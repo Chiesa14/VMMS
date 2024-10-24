@@ -138,3 +138,9 @@ a.no-style{
 .title{
     text-align: center;
 }
+
+.logout-btn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

@@ -1,5 +1,10 @@
-from django.contrib.auth.models import PermissionsMixin,BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin, BaseUserManager, AbstractBaseUser
 from django.db import models
+
+USER_ROLES = (
+        ('user','Car Owner'),
+        ('mechanic','Mechanic'),
+    )
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -17,13 +22,14 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        return self.create_user(email, password,**extra_fields)
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(unique=True)
+    user_role  = models.CharField(max_length=50, choices=USER_ROLES, default='user')
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

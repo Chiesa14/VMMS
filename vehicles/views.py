@@ -10,7 +10,16 @@ from .models import Vehicles
 @login_required(login_url="/auth/login/")
 def home(request):
     vehicles = Vehicles.objects.all()
-    return render(request, 'vehicles.html', {'vehicles': vehicles})
+    user = request.user
+
+    if user.is_superuser:  # Admin users
+        return render(request, 'admin_home.html',{'vehicles':vehicles})
+
+    elif user.is_staff:  # Staff users (e.g., mechanics)
+        return render(request, 'mechanics_home.html',{'vehicles':vehicles})
+
+    else:
+        return render(request, 'user_home.html',{'vehicles':vehicles})
 
 
 @login_required(login_url="/auth/login/")
