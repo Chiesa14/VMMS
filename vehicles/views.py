@@ -27,9 +27,11 @@ def create_vehicle(request):
     if request.method == 'POST':
         form = VehicleForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/')  # Redirect to home page after creating vehicle
-    else:  # Handle GET request to render the form
+            vehicle = form.save(commit=False)
+            vehicle.user = request.user
+            vehicle.save()
+            return redirect('home')
+    else:
         form = VehicleForm()
 
     return render(request, 'vehicle_form.html', {'form': form})

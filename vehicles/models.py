@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import User
 
 # Create your models here.
 class Vehicles(models.Model):
@@ -8,6 +8,7 @@ class Vehicles(models.Model):
     MODEL_CHOICES = [('Automatic', 'Automatic'), ('Manual', 'Manual'), ]
     TYPE_CHOICES = [('Car', 'Car'), ('Motorcycle', 'Motorcycle'), ]
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_vehicles',default=1)
     make = models.CharField(max_length=20, choices=MAKE_CHOICES)
     vehicle_name = models.CharField(max_length=50)
     model = models.CharField(max_length=20, choices=MODEL_CHOICES)
