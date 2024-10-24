@@ -6,7 +6,7 @@ from .models import MaintenanceSchedule
 class MaintenanceScheduleForm(forms.ModelForm):
     class Meta:
         model = MaintenanceSchedule
-        fields = '__all__'
+        fields = ('task_name','due_date')
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}),
         }
