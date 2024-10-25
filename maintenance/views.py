@@ -38,15 +38,22 @@ def list_maintenance_schedule(request):
 
     schedules = MaintenanceSchedule.objects.all()
 
-    if vehicle_id:
-        schedules = schedules.filter(vehicle__id=vehicle_id)
-    if vehicle_id and status_filter == 'completed':
-        schedules = schedules.filter(completed=True)
-    elif vehicle_id and status_filter == 'not_completed':
-        schedules = schedules.filter(completed=False)
-
-    if not vehicle_id and not status_filter == 'completed' or not vehicle_id and not status_filter == 'not_completed':
-        return redirect('home')
+    if not request.user.is_superuser or not request.user.is_staff:
+        if vehicle_id:
+            schedules = schedules.filter(vehicle__id=vehicle_id)
+        if vehicle_id and status_filter == 'completed':
+            schedules = schedules.filter(completed=True)
+        elif vehicle_id and status_filter == 'not_completed':
+            schedules = schedules.filter(completed=False)
+        if not vehicle_id and not status_filter == 'completed' or not vehicle_id and not status_filter == 'not_completed':
+            return redirect('home')
+    elif request.user.is_superuser:
+        if vehicle_id:
+            schedules = schedules.filter(vehicle__id=vehicle_id)
+        if status_filter == 'completed':
+            schedules = schedules.filter(completed=True)
+        elif status_filter == 'not_completed':
+            schedules = schedules.filter(completed=False)
 
     schedules = schedules.order_by('due_date')
 

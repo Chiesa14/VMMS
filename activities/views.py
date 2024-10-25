@@ -57,3 +57,11 @@ def mark_as_done(request, activity_id):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@login_required(login_url="/auth/login/")
+def list_activities_as_admin(request):
+    activities = Activity.objects.all()
+
+    return render(request, 'list_activities.html', {
+        'activities': activities,
+    })
