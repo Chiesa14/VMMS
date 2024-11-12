@@ -72,6 +72,7 @@
         <tr>
             <th>Status</th>
             <th>Vehicle</th>
+            <th>VIN</th>
             <th>Task</th>
             <th>Due Date</th>
             <th>Actions</th>
@@ -88,6 +89,7 @@
                     {% endif %}
                 </td>
                 <td>{{ schedule.vehicle.vehicle_name }}</td>
+                <td>{{ schedule.vehicle.vin }}</td>
                 <td>{{ schedule.task_name }}</td>
                 <td>{{ schedule.due_date }}</td>
                 <td>

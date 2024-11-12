@@ -10,27 +10,36 @@ from .models import Vehicles
 
 # Create your views here.
 @login_required(login_url="/auth/login/")
+@login_required(login_url="/auth/login/")
 def home(request):
-    vehicles = Vehicles.objects.filter(user=request.user)
+    view = request.GET.get("view", "vehicles")
     user = request.user
 
     if user.is_superuser:
         vehicles = Vehicles.objects.all()
+        users = User.objects.all()
         maintenance_schedule = MaintenanceSchedule.objects.all()
         activities = Activity.objects.all()
-        users = User.objects.all()
 
-        return render(request, 'admin_home.html',
-                      {'vehicles': vehicles, 'maintenance_schedule': maintenance_schedule, 'activities': activities,
-                       'vehicles_len': len(vehicles), 'maintenance_schedule_len': len(maintenance_schedule),
-                       'activities_len': len(activities), 'users': users, 'user_len': len(users)})
+        return render(request, 'admin_home.html', {
+            'vehicles': vehicles,
+            'users': users,
+            'maintenance_schedule': maintenance_schedule,
+            'activities': activities,
+            'vehicles_len': len(vehicles) if vehicles else 0,
+            'users_len': len(users) if users else 0,
+            'maintenance_schedule_len': len(maintenance_schedule),
+            'activities_len': len(activities),
+            'current_view': view
+        })
 
     elif user.is_staff:
+        vehicles = Vehicles.objects.filter(user=user)
         return render(request, 'mechanics_home.html', {'vehicles': vehicles})
 
     else:
+        vehicles = Vehicles.objects.filter(user=user)
         return render(request, 'user_home.html', {'vehicles': vehicles})
-
 
 @login_required(login_url="/auth/login/")
 def create_vehicle(request):
