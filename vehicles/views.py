@@ -25,13 +25,13 @@ def home(request):
 
         # Chart data for maintenance activities per vehicle
         maintenance_data = (
-            maintenance_schedule.values('vehicle__vehicle_name','activities')
-            # .annotate(maintenance_count=Count('id'))
+            maintenance_schedule.values('vehicle__vehicle_name','vehicle__make')
+            .annotate(maintenance_count=Count('id'))
         )
 
         print(maintenance_data)
         data_points = [
-            {"label": item["vehicle__vehicle_name"], "y": 2}
+            {"label": item["vehicle__make"]+" "+item["vehicle__vehicle_name"], "y": item['maintenance_count']}
             for item in maintenance_data
         ]
 
