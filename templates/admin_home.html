@@ -6,6 +6,8 @@
     <title>{% block title %}Admin - Dashboard{% endblock %}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
     <script>
         {% block scripts %}
             function deleteUser(userId) {
@@ -14,12 +16,12 @@
                     fetch(deleteUrl, {
                         method: "POST",
                         headers: {
-                            'X-CSRFToken': "{{ csrf_token }}",  // Pass the CSRF token
+                            'X-CSRFToken': "{{ csrf_token }}",
                             'Content-Type': 'application/json',
                         },
                     }).then(response => {
                         if (response.ok) {
-                            window.location.reload();  // Reload the page after successful deletion
+                            window.location.reload();
                         } else {
                             alert('Error occurred while deleting user.');
                         }
@@ -27,11 +29,34 @@
                 }
             }
 
+            window.onload = function () {
+                
+                const chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Vehicle Maintenance Activities"
+                    },
+                    axisY: {
+                        title: "Number of Maintenance Activities",
+                        includeZero: true
+                    },
+                    axisX: {
+                        title: "Vehicles",
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: {{ data_points|safe }}
+                    }]
+                });
+                chart.render();
+            };
         {% endblock %}
     </script>
 </head>
 <body>
 {% block content %}
+
+
     <div class="data-section">
         <div class="data-item" onclick="window.location.href='{% url 'home' %}?view=users'">
             <h2>Users</h2>
@@ -131,12 +156,14 @@
             </tbody>
         </table>
     {% endif %}
+    <div id="chartContainer" style="width: 100%; height: 360px;"></div>
 
     <div>
         <a href="{% url 'logout' %}" class="delete-btn logout-btn">
             <i class="fas fa-sign-out-alt"></i>
         </a>
     </div>
+
 {% endblock %}
 </body>
 </html>
